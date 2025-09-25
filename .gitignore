@@ -1,0 +1,101 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# API Keys and Secrets
+**/api_key*
+**/secret*
+**/*credentials*
+**/*token*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.pyc
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+*.txt.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.cache
+
+# Output files
+output/
+outputs/
+*.mp4
+*.avi
+*.mov
+*.mkv
+generated_videos/
+generated_images/
+
+# Model files (if large)
+*.ckpt
+*.safetensors
+*.bin
+*.pth
+models/
+checkpoints/
+
+# ComfyUI specific
+input/
+output/
+temp/
+models/
+custom_nodes/__pycache__/
+
+# Private configuration
+private/
+private_config/
+config.local.json
+settings.local.json
