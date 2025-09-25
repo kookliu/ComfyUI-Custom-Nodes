@@ -151,8 +151,8 @@ class SeedanceImage2VideoAPI:
 
     def generate_video(self, image_tensor, prompt: str, params: Dict[str, Any]) -> Dict[str, Any]:
         # 从环境变量获取模型名称
-        lite_model = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'doubao-seedance-1-0-lite-i2v-250428')
-        pro_model = os.getenv('SEEDANCE_PRO_MODEL', 'doubao-seedance-1-0-pro-250528')
+        lite_model = os.getenv('SEEDANCE_LITE_T2V_MODEL', 'seedance-1-0-lite-i2v-250428')
+        pro_model = os.getenv('SEEDANCE_PRO_MODEL', 'seedance-1-0-pro-250528')
 
         # 映射用户选择到实际模型名称
         model_mapping = {
@@ -238,7 +238,7 @@ class SeedanceImage2VideoNode:
             "required": {
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True, "default": "Generate a video from this image"}),
-                "model": (["doubao-seedance-1-0-lite-i2v-250428", "doubao-seedance-1-0-pro-250528"], {"default": "doubao-seedance-1-0-lite-i2v-250428"}),
+                "model": (["seedance-1-0-lite-i2v-250428", "seedance-1-0-pro-250528"], {"default": "seedance-1-0-lite-i2v-250428"}),
                 "resolution": (["480p", "720p", "1080p"], {"default": "720p"}),
                 "aspect_ratio": (["16:9", "4:3", "1:1", "3:4", "9:16", "21:9", "adaptive"], {"default": "adaptive"}),
                 "duration": ("INT", {"default": 5, "min": 3, "max": 12, "step": 1, "display": "slider"}),

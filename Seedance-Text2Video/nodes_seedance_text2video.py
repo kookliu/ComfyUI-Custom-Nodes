@@ -101,8 +101,8 @@ class SeedanceText2VideoAPI:
 
     def generate_video(self, prompt: str, params: Dict[str, Any]) -> Dict[str, Any]:
         # 从环境变量获取模型名称
-        lite_model = os.getenv('SEEDANCE_LITE_T2V_MODEL', 'doubao-seedance-1-0-lite-t2v-250428')
-        pro_model = os.getenv('SEEDANCE_PRO_MODEL', 'doubao-seedance-1-0-pro-250528')
+        lite_model = os.getenv('SEEDANCE_LITE_T2V_MODEL', 'seedance-1-0-lite-t2v-250428')
+        pro_model = os.getenv('SEEDANCE_PRO_MODEL', 'seedance-1-0-pro-250528')
 
         # 映射用户选择到实际模型名称
         model_mapping = {
@@ -132,14 +132,31 @@ class SeedanceText2VideoAPI:
             "content": [{"type": "text", "text": text_content}],
         }
 
-        r = requests.post(
-            f"{self.base_url}/contents/generations/tasks",
-            headers=self.headers,
-            json=payload,
-            timeout=60,
-        )
-        r.raise_for_status()
-        return r.json()
+        # 调试输出
+        print(f"[Seedance Debug] User selected model: {params.get('model')}")
+        print(f"[Seedance Debug] Actual model to send: {actual_model}")
+        print(f"[Seedance Debug] Full payload: {payload}")
+        print(f"[Seedance Debug] API endpoint: {self.base_url}/contents/generations/tasks")
+
+        try:
+            r = requests.post(
+                f"{self.base_url}/contents/generations/tasks",
+                headers=self.headers,
+                json=payload,
+                timeout=60,
+            )
+            r.raise_for_status()
+            response_json = r.json()
+            print(f"[Seedance Debug] API Response: {response_json}")
+            return response_json
+        except requests.exceptions.HTTPError as e:
+            print(f"[Seedance Error] HTTP Error: {e}")
+            print(f"[Seedance Error] Response Status: {r.status_code}")
+            print(f"[Seedance Error] Response Text: {r.text}")
+            raise
+        except Exception as e:
+            print(f"[Seedance Error] Unexpected error: {e}")
+            raise
 
     def get_task_status(self, task_id: str) -> Dict[str, Any]:
         r = requests.get(
@@ -182,7 +199,7 @@ class SeedanceText2VideoNode:
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True, "default": "A beautiful landscape with mountains and lakes"}),
-                "model": (["doubao-seedance-1-0-lite-t2v-250428", "doubao-seedance-1-0-pro-250528"], {"default": "doubao-seedance-1-0-lite-t2v-250428"}),
+                "model": (["seedance-1-0-lite-t2v-250428", "seedance-1-0-pro-250528"], {"default": "seedance-1-0-lite-t2v-250428"}),
                 "resolution": (["480p", "720p", "1080p"], {"default": "720p"}),
                 "aspect_ratio": (["16:9", "4:3", "1:1", "3:4", "9:16", "21:9"], {"default": "16:9"}),
                 "duration": ("INT", {"default": 5, "min": 3, "max": 12, "step": 1, "display": "slider"}),

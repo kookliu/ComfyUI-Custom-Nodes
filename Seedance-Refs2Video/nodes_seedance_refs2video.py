@@ -167,15 +167,8 @@ class SeedanceRefs2VideoAPI:
         }
 
     def generate_video(self, images: List[Any], prompt: str, params: Dict[str, Any]) -> Dict[str, Any]:
-        # 从环境变量获取模型名称
-        lite_model = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'doubao-seedance-1-0-lite-i2v-250428')
-
-        # 映射用户选择到实际模型名称
-        model_mapping = {
-            'seedance-1-0-lite-i2v-250428': lite_model,
-            'doubao-seedance-1-0-lite-i2v-250428': lite_model,
-        }
-        actual_model = model_mapping.get(params.get('model'), lite_model)
+        # 直接使用传入的模型名称，因为它已经是从环境变量读取的正确值
+        actual_model = params.get('model', 'seedance-1-0-lite-i2v-250428')
         # Validate images
         valid_images = _validate_images(images)
 
@@ -290,11 +283,16 @@ class SeedanceRefs2VideoNode:
 
     @classmethod
     def INPUT_TYPES(cls):
+        # Load model name from environment variable
+        if DOTENV_AVAILABLE:
+            load_dotenv()
+        model_name = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'seedance-1-0-lite-i2v-250428')
+
         return {
             "required": {
                 "images": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True, "default": "Generate a video from these reference images"}),
-                "model": (["doubao-seedance-1-0-lite-i2v-250428"], {"default": "doubao-seedance-1-0-lite-i2v-250428"}),
+                "model": ([model_name], {"default": model_name}),
                 "resolution": (["480p", "720p", "1080p"], {"default": "720p"}),
                 "aspect_ratio": (["16:9", "4:3", "1:1", "3:4", "9:16", "21:9"], {"default": "16:9"}),
                 "duration": ("INT", {"default": 5, "min": 3, "max": 12, "step": 1, "display": "slider"}),

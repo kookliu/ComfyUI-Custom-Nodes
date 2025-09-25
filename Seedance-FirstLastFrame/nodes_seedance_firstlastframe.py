@@ -152,14 +152,10 @@ class SeedanceFirstLastFrameAPI:
 
     def generate_video(self, first_frame_tensor, last_frame_tensor, prompt: str, params: Dict[str, Any]) -> Dict[str, Any]:
         # 从环境变量获取模型名称
-        lite_model = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'doubao-seedance-1-0-lite-i2v-250428')
+        lite_model = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'seedance-1-0-lite-i2v-250428')
 
-        # 映射用户选择到实际模型名称
-        model_mapping = {
-            'seedance-1-0-lite-i2v-250428': lite_model,
-            'doubao-seedance-1-0-lite-i2v-250428': lite_model,
-        }
-        actual_model = model_mapping.get(params.get('model'), lite_model)
+        # 直接使用环境变量中的模型名称
+        actual_model = lite_model
         # Convert images to base64
         first_frame_base64 = _image_to_base64(first_frame_tensor)
         last_frame_base64 = _image_to_base64(last_frame_tensor)
@@ -244,12 +240,15 @@ class SeedanceFirstLastFrameNode:
 
     @classmethod
     def INPUT_TYPES(cls):
+        # 从环境变量获取模型名称
+        lite_model = os.getenv('SEEDANCE_LITE_I2V_MODEL', 'seedance-1-0-lite-i2v-250428')
+
         return {
             "required": {
                 "first_frame": ("IMAGE",),
                 "last_frame": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True, "default": "A blue-green jingwei bird transforms into a human form."}),
-                "model": (["doubao-seedance-1-0-lite-i2v-250428"], {"default": "doubao-seedance-1-0-lite-i2v-250428"}),
+                "model": ([lite_model], {"default": lite_model}),
                 "resolution": (["480p", "720p", "1080p"], {"default": "720p"}),
                 "aspect_ratio": (["16:9", "4:3", "1:1", "3:4", "9:16", "21:9", "adaptive"], {"default": "adaptive"}),
                 "duration": ("INT", {"default": 5, "min": 3, "max": 12, "step": 1, "display": "slider"}),
