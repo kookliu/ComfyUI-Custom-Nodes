@@ -46,13 +46,13 @@
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/yourusername/comfyui-byteplus-nodes.git
+git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git
 ```
 
 ### 2. 安装依赖
 
 ```bash
-cd comfyui-byteplus-nodes
+cd ComfyUI-Custom-Nodes
 pip install -r requirements.txt
 ```
 
@@ -178,4 +178,4 @@ MIT License
 
 ## 📮 技术支持
 
-如有问题或需要帮助，请提交 [Issue](https://github.com/yourusername/comfyui-byteplus-nodes/issues)
+如有问题或需要帮助，请提交 [Issue](https://github.com/kookliu/ComfyUI-Custom-Nodes/issues)

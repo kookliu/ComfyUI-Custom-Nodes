@@ -46,13 +46,13 @@ A collection of ComfyUI custom nodes integrating BytePlus APIs for advanced imag
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/yourusername/comfyui-byteplus-nodes.git
+git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git
 ```
 
 ### 2. Install dependencies
 
 ```bash
-cd comfyui-byteplus-nodes
+cd ComfyUI-Custom-Nodes
 pip install -r requirements.txt
 ```
 
@@ -178,4 +178,4 @@ MIT License
 
 ## 📮 Support
 
-For issues or help, please open an [Issue](https://github.com/yourusername/comfyui-byteplus-nodes/issues)
+For issues or help, please open an [Issue](https://github.com/kookliu/ComfyUI-Custom-Nodes/issues)
