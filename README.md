@@ -42,31 +42,47 @@ A collection of ComfyUI custom nodes integrating BytePlus APIs for advanced imag
 
 ## 📦 Installation
 
-### 1. Clone the repository
+### 1. Clone the repository to a temporary directory
 
 ```bash
-cd ComfyUI/custom_nodes
-git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git
+# Clone to temporary directory
+git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git /tmp/ComfyUI-Custom-Nodes
+
+# Copy all subdirectories to ComfyUI custom_nodes
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedream4.0 ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Text2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Image2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Refs2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-FirstLastFrame ComfyUI/custom_nodes/
+
+# Clean up temporary directory
+rm -rf /tmp/ComfyUI-Custom-Nodes
 ```
 
 ### 2. Install dependencies
 
 ```bash
-cd ComfyUI-Custom-Nodes
-pip install -r requirements.txt
+cd ComfyUI
+pip install -r custom_nodes/Seedream4.0/requirements.txt
 ```
 
 ### 3. Configure API Keys
 
-Create `.env` files in each node directory with your BytePlus API key:
+Copy `.env.example` files to `.env` in each node directory and add your BytePlus API key:
 
 ```bash
-# Create .env file in each node directory
-echo "ARK_API_KEY=your_api_key_here" > Seedream4.0/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Text2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Image2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Refs2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-FirstLastFrame/.env
+# Navigate to ComfyUI custom_nodes directory
+cd ComfyUI/custom_nodes
+
+# Copy .env.example to .env for each node and edit with your API key
+cp Seedream4.0/.env.example Seedream4.0/.env
+cp Seedance-Text2Video/.env.example Seedance-Text2Video/.env
+cp Seedance-Image2Video/.env.example Seedance-Image2Video/.env
+cp Seedance-Refs2Video/.env.example Seedance-Refs2Video/.env
+cp Seedance-FirstLastFrame/.env.example Seedance-FirstLastFrame/.env
+
+# Edit each .env file to add your actual API key
+# Replace 'your_api_key_here' with your actual BytePlus API key
 ```
 
 Optional: Configure API endpoint (defaults to China Beijing region):

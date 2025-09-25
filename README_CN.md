@@ -42,31 +42,47 @@
 
 ## 📦 安装步骤
 
-### 1. 克隆仓库
+### 1. 克隆仓库到临时目录
 
 ```bash
-cd ComfyUI/custom_nodes
-git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git
+# 克隆到临时目录
+git clone https://github.com/kookliu/ComfyUI-Custom-Nodes.git /tmp/ComfyUI-Custom-Nodes
+
+# 复制所有子目录到 ComfyUI custom_nodes
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedream4.0 ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Text2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Image2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-Refs2Video ComfyUI/custom_nodes/
+cp -r /tmp/ComfyUI-Custom-Nodes/Seedance-FirstLastFrame ComfyUI/custom_nodes/
+
+# 清理临时目录
+rm -rf /tmp/ComfyUI-Custom-Nodes
 ```
 
 ### 2. 安装依赖
 
 ```bash
-cd ComfyUI-Custom-Nodes
-pip install -r requirements.txt
+cd ComfyUI
+pip install -r custom_nodes/Seedream4.0/requirements.txt
 ```
 
 ### 3. 配置 API 密钥
 
-在每个节点目录中创建 `.env` 文件并添加您的 BytePlus API 密钥：
+从 `.env.example` 复制到 `.env` 并添加您的 BytePlus API 密钥：
 
 ```bash
-# 在每个节点目录创建 .env 文件
-echo "ARK_API_KEY=your_api_key_here" > Seedream4.0/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Text2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Image2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-Refs2Video/.env
-echo "ARK_API_KEY=your_api_key_here" > Seedance-FirstLastFrame/.env
+# 进入 ComfyUI custom_nodes 目录
+cd ComfyUI/custom_nodes
+
+# 为每个节点复制 .env.example 到 .env
+cp Seedream4.0/.env.example Seedream4.0/.env
+cp Seedance-Text2Video/.env.example Seedance-Text2Video/.env
+cp Seedance-Image2Video/.env.example Seedance-Image2Video/.env
+cp Seedance-Refs2Video/.env.example Seedance-Refs2Video/.env
+cp Seedance-FirstLastFrame/.env.example Seedance-FirstLastFrame/.env
+
+# 编辑每个 .env 文件，添加您的实际 API 密钥
+# 将 'your_api_key_here' 替换为您的实际 BytePlus API 密钥
 ```
 
 可选：配置 API 端点（默认为中国北京区域）：
